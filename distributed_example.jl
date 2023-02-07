@@ -1,7 +1,7 @@
 using Distributed
 using ClusterManagers
 
-addprocs(SlurmManager(4), exeflags=["--project", "--threads=2"])
+addprocs(SlurmManager(8), exeflags=["--project", "--threads=2"])
 
 @everywhere function get_info()
     results = Dict{Symbol, Any}()
@@ -12,9 +12,11 @@ addprocs(SlurmManager(4), exeflags=["--project", "--threads=2"])
 end
 
 info = []
+info_tasks = []
 for i in workers()
     worker_info = fetch(@spawnat i get_info())
     push!(info, worker_info)
+    println(worker_info)
 end
 
-println(info)
+rmprocs(workers())
