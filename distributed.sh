@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=jldistributed     # create a short name for your job
+#SBATCH --job-name=jldistributed
 
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=4
